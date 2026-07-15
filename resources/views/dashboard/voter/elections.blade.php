@@ -3,10 +3,7 @@
 @section('page-title', 'Elections')
 
 @section('sidebar-nav')
-    <a href="{{ route('voter.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Dashboard</a>
-    <a href="{{ route('voter.elections.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium bg-orange-500 text-white">Elections</a>
-    <a href="{{ route('voter.vote-history') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Vote History</a>
-    <a href="{{ route('voter.profile') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Profile</a>
+    @include('partials.sidebar-voter')
 @endsection
 
 @section('content')

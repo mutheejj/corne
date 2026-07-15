@@ -2,6 +2,10 @@
 
 @section('page-title', 'Vote Confirmation')
 
+@section('sidebar-nav')
+    @include('partials.sidebar-voter')
+@endsection
+
 @section('content')
 <div class="max-w-lg mx-auto">
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 text-center">

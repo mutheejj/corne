@@ -112,7 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return Storage::disk('public')->url($this->avatar);
         }
 
-        return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=0a1628&background=f97316';
+        return asset('images/default-avatar.svg');
     }
 
     public function hasVotedIn(Election $election): bool

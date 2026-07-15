@@ -5,30 +5,50 @@
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased">
 
+    {{-- Mobile sidebar overlay --}}
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden transition-opacity duration-300"></div>
+
     <div class="flex min-h-screen">
         {{-- Sidebar --}}
-        <aside class="w-64 bg-navy-950 text-white flex-shrink-0 hidden lg:flex flex-col">
-            <div class="p-6 border-b border-navy-800">
-                <a href="{{ route('home') }}" class="flex items-center">
-                    <span class="text-2xl font-extrabold">Corn<span class="text-orange-500">elect</span></span>
-                </a>
+        <aside id="dashboard-sidebar" class="w-64 bg-navy-950 text-white flex-shrink-0 fixed lg:sticky top-0 left-0 z-40 h-screen lg:h-screen flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-6 border-b border-navy-800 flex-shrink-0">
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('home') }}" class="flex items-center">
+                        <span class="text-2xl font-extrabold">Corn<span class="text-orange-500">elect</span></span>
+                    </a>
+                    <button id="sidebar-close" class="lg:hidden p-1 text-navy-400 hover:text-white">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
             </div>
 
-            <nav class="flex-1 p-4 space-y-1">
+            <nav class="flex-1 p-4 space-y-1 overflow-y-auto">
                 @yield('sidebar-nav')
             </nav>
 
-            <div class="p-4 border-t border-navy-800">
-                <div class="flex items-center gap-3 mb-3">
-                    <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full">
+            {{-- Profile section --}}
+            @php
+                $profileRoute = match(auth()->user()->role) {
+                    'admin' => 'admin.dashboard',
+                    'candidate' => 'candidate.dashboard',
+                    default => 'voter.profile',
+                };
+            @endphp
+            <div class="p-4 border-t border-navy-800 flex-shrink-0">
+                <a href="{{ route($profileRoute) }}" class="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-navy-800 transition-colors group">
+                    <div class="relative shrink-0">
+                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full ring-2 ring-navy-700 group-hover:ring-orange-500 transition-all duration-300">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full ring-2 ring-navy-950"></span>
+                    </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold truncate">{{ auth()->user()->name }}</p>
+                        <p class="text-sm font-semibold truncate group-hover:text-orange-400 transition-colors">{{ auth()->user()->name }}</p>
                         <p class="text-xs text-navy-400 truncate">{{ ucfirst(auth()->user()->role) }}</p>
                     </div>
-                </div>
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full text-left text-sm text-navy-400 hover:text-orange-500 transition-colors">
+                    <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-navy-400 hover:text-orange-500 hover:bg-navy-800 transition-all duration-300 group">
+                        <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                         Sign Out
                     </button>
                 </form>
@@ -36,10 +56,15 @@
         </aside>
 
         {{-- Main Content --}}
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col min-w-0 w-full">
             {{-- Top Bar --}}
-            <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                <h1 class="text-xl font-bold text-navy-950">@yield('page-title', 'Dashboard')</h1>
+            <header class="bg-white border-b border-slate-200 px-4 lg:px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+                <div class="flex items-center gap-3 min-w-0">
+                    <button id="sidebar-toggle" class="lg:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors flex-shrink-0">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                    <h1 class="text-xl font-bold text-navy-950 truncate">@yield('page-title', 'Dashboard')</h1>
+                </div>
                 <div class="flex items-center gap-4">
                     {{-- Notification Dropdown --}}
                     @php
@@ -105,38 +130,32 @@
         </div>
     </div>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: {
-                            50: '#f0f4f8', 100: '#d9e2ec', 200: '#bcccdc', 300: '#9fb3c8',
-                            400: '#829ab1', 500: '#627d98', 600: '#486581', 700: '#334e68',
-                            800: '#243b53', 900: '#102a43', 950: '#0a1628',
-                        },
-                        orange: {
-                            50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74',
-                            400: '#fb923c', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
-                            800: '#9a3412', 900: '#7c2d12',
-                        },
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        display: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                },
-            },
-        };
-    </script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="{{ asset('js/app.js') }}"></script>
-    <script>lucide.createIcons();</script>
+    <script src="{{ asset('js/lucide.min.js') }}"></script>
+    <script>
+        lucide.createIcons();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var sidebar = document.getElementById('dashboard-sidebar');
+            var overlay = document.getElementById('sidebar-overlay');
+            var toggle = document.getElementById('sidebar-toggle');
+            var close = document.getElementById('sidebar-close');
+
+            function openSidebar() {
+                if (sidebar) { sidebar.classList.remove('-translate-x-full'); }
+                if (overlay) { overlay.classList.remove('hidden'); }
+            }
+            function closeSidebar() {
+                if (sidebar) { sidebar.classList.add('-translate-x-full'); }
+                if (overlay) { overlay.classList.add('hidden'); }
+            }
+
+            if (toggle) toggle.addEventListener('click', openSidebar);
+            if (close) close.addEventListener('click', closeSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+        });
+    </script>
 
     @stack('scripts')
 </body>

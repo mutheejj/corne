@@ -74,7 +74,7 @@
 </div>
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{{ asset('js/chart.min.js') }}"></script>
 <script>
     new Chart(document.getElementById('candidateChart'), {
         type: 'bar',

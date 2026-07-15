@@ -4,6 +4,7 @@ use App\Http\Middleware\ElectionActive;
 use App\Http\Middleware\EnsureActiveUser;
 use App\Http\Middleware\HasNotVoted;
 use App\Http\Middleware\PreventFraudMiddleware;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\UpdateLastLogin;
@@ -19,6 +20,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
+        $middleware->preventRequestsDuringMaintenance(except: [
+            'health',
+            'health/*',
+        ]);
+
         $middleware->alias([
             'role' => RoleMiddleware::class,
             'active' => EnsureActiveUser::class,
@@ -26,6 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'has.not.voted' => HasNotVoted::class,
             'last.login' => UpdateLastLogin::class,
             'prevent.fraud' => PreventFraudMiddleware::class,
+            'guest' => RedirectIfAuthenticated::class,
         ]);
 
         $middleware->appendToGroup('web', [

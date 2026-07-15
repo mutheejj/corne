@@ -175,7 +175,7 @@
 </div>
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{{ asset('js/chart.min.js') }}"></script>
 <script>
     // Turnout doughnut chart
     new Chart(document.getElementById('turnoutChart'), {

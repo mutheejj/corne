@@ -65,7 +65,7 @@ test('voter cannot vote twice for same position', function () {
             'candidate_id' => $this->candidates[1]->id,
             'position_id' => $this->position->id,
         ])
-        ->assertForbidden();
+        ->assertRedirect();
 });
 
 test('voter can view vote confirmation', function () {

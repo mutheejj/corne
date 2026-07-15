@@ -2,6 +2,10 @@
 
 @section('page-title', 'Ballot')
 
+@section('sidebar-nav')
+    @include('partials.sidebar-voter')
+@endsection
+
 @section('content')
 <div class="max-w-2xl space-y-6">
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">

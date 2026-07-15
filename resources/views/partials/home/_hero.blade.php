@@ -1,5 +1,5 @@
 {{-- Hero Section --}}
-<section class="relative h-[70vh] min-h-[500px] overflow-hidden flex items-center pt-28">
+<section class="relative min-h-[500px] sm:min-h-[600px] overflow-hidden flex items-center pt-28 pb-16">
     {{-- Background Slider --}}
     <div class="hero-slider absolute inset-0 z-0">
         <div class="hero-slide active" style="background-image: url('{{ asset('images/hero/slide1.jpg') }}')"></div>
@@ -16,7 +16,7 @@
         <button class="hero-dot" data-slide="2"></button>
     </div>
 
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full text-center">
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 w-full text-center">
                 <div class="inline-flex items-center gap-2 badge badge-orange mb-6 animate-fade-in-down">
                     <span class="notification-dot"></span>
                     <span>Trusted by universities nationwide</span>
@@ -43,7 +43,7 @@
                 </div>
 
                 {{-- Trust Indicators --}}
-                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 mt-12 justify-center animate-fade-in-up delay-500">
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 mt-8 sm:mt-12 justify-center animate-fade-in-up delay-500">
                     <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/></svg>
                         <span class="text-white/60 text-sm">256-bit Encryption</span>

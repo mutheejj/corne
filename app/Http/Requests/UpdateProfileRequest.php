@@ -21,6 +21,10 @@ class UpdateProfileRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
             'avatar' => ['nullable', 'image', 'max:2048'],
             'password' => ['nullable', 'confirmed', 'min:8'],
+            'faculty' => ['nullable', 'string', 'max:255'],
+            'department' => ['nullable', 'string', 'max:255'],
+            'course' => ['nullable', 'string', 'max:255'],
+            'year_of_study' => ['nullable', 'integer', 'min:1', 'max:6'],
         ];
     }
 }

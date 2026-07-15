@@ -18,11 +18,27 @@
 
             {{-- Desktop CTA Buttons --}}
             <div class="hidden lg:flex items-center gap-4">
-                <a href="{{ route('login') }}" class="text-white/80 hover:text-orange-400 text-sm font-semibold transition-colors">Sign In</a>
-                <a href="{{ route('register') }}" class="btn-primary text-sm">
-                    Get Started
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
+                @auth
+                    <a href="{{ match(auth()->user()->role) {
+                        'admin' => route('admin.dashboard'),
+                        'voter' => route('voter.dashboard'),
+                        'candidate' => route('candidate.dashboard'),
+                        default => route('home'),
+                    } }}" class="text-white/80 hover:text-orange-400 text-sm font-semibold transition-colors">Dashboard</a>
+                    <span class="text-white/60 text-sm">{{ auth()->user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="btn-primary text-sm">
+                            Logout
+                        </button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="text-white/80 hover:text-orange-400 text-sm font-semibold transition-colors">Sign In</a>
+                    <a href="{{ route('register') }}" class="btn-primary text-sm">
+                        Get Started
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                @endauth
             </div>
 
             {{-- Mobile Menu Button --}}
@@ -56,11 +72,27 @@
         </nav>
 
         <div class="border-t border-white/10 pt-6 flex flex-col gap-3">
-            <a href="{{ route('login') }}" class="btn-secondary w-full justify-center">Sign In</a>
-            <a href="{{ route('register') }}" class="btn-primary w-full justify-center">
-                Get Started
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
+            @auth
+                <a href="{{ match(auth()->user()->role) {
+                    'admin' => route('admin.dashboard'),
+                    'voter' => route('voter.dashboard'),
+                    'candidate' => route('candidate.dashboard'),
+                    default => route('home'),
+                } }}" class="btn-secondary w-full justify-center">Dashboard</a>
+                <span class="text-white/60 text-sm text-center">{{ auth()->user()->name }}</span>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn-primary w-full justify-center">
+                        Logout
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="btn-secondary w-full justify-center">Sign In</a>
+                <a href="{{ route('register') }}" class="btn-primary w-full justify-center">
+                    Get Started
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            @endauth
         </div>
     </div>
 </aside>

@@ -2,6 +2,10 @@
 
 @section('page-title', 'Election Results')
 
+@section('sidebar-nav')
+    @include('partials.sidebar-voter')
+@endsection
+
 @section('content')
 <div class="space-y-6">
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -46,7 +50,7 @@
 </div>
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="{{ asset('js/chart.min.js') }}"></script>
 <script>
     @foreach ($results['positions'] as $positionResult)
         new Chart(document.getElementById('chart-{{ $positionResult['position']['id'] }}'), {
