@@ -33,6 +33,16 @@ test('candidate can view profile', function () {
 });
 
 test('candidate can update profile', function () {
+    $electielection->update(['status' => 'scheduled']);
+
+    $this->on = Election::factory()->draft()->create(['created_by' => $this->admin->id]);
+    $position = Position::factory()->create(['election_id' => $election->id]);
+    $candidate = Candidate::factory()->approved()->create([
+        'user_id' => $this->candidateUser->id,
+        'election_id' => $election->id,
+        'position_id' => $position->id,
+    ]);
+
     $this->actingAs($this->candidateUser)
         ->put(route('candidate.profile.update'), [
             'manifesto_title' => 'Updated Vision',
@@ -41,7 +51,7 @@ test('candidate can update profile', function () {
         ])
         ->assertRedirect();
 
-    expect($this->candidate->fresh()->manifesto_title)->toBe('Updated Vision');
+    expect($candidate->fresh()->manifesto_title)->toBe('Updated Vision');
 });
 
 test('candidate can view their election', function () {
