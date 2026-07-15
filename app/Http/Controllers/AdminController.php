@@ -293,4 +293,48 @@ class AdminController extends Controller
 
         return response()->json($resultsService->getLiveResults($election));
     }
+
+    public function search(\Illuminate\Http\Request $request)
+    {
+        $query = trim($request->get('q', ''));
+
+        if ($query === '') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        $elections = Election::where('name', 'like', "%{$query}%")
+            ->orWhere('slug', 'like', "%{$query}%")
+            ->with(['creator', 'faculty', 'department'])
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        $candidates = Candidate::whereHas('user', function ($q) use ($query): void {
+            $q->where('name', 'like', "%{$query}%")
+                ->orWhere('email', 'like', "%{$query}%");
+        })
+            ->with(['user', 'election', 'position'])
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        $voters = User::voters()
+            ->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                    ->orWhere('email', 'like', "%{$query}%")
+                    ->orWhere('student_id', 'like', "%{$query}%");
+            })
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        $logs = AuditLog::where('action', 'like', "%{$query}%")
+            ->orWhere('description', 'like', "%{$query}%")
+            ->with('user')
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return view('dashboard.admin.search', compact('query', 'elections', 'candidates', 'voters', 'logs'));
+    }
 }

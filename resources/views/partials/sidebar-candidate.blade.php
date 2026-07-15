@@ -2,33 +2,33 @@
     $navItems = [
         [
             'label' => 'Dashboard',
-            'route' => 'voter.dashboard',
+            'route' => 'candidate.dashboard',
             'icon' => 'layout-dashboard',
-            'active' => request()->routeIs('voter.dashboard'),
+            'active' => request()->routeIs('candidate.dashboard'),
         ],
         [
-            'label' => 'Elections',
-            'route' => 'voter.elections.index',
-            'icon' => 'vote',
-            'active' => request()->routeIs('voter.elections*'),
-        ],
-        [
-            'label' => 'Vote History',
-            'route' => 'voter.vote-history',
-            'icon' => 'history',
-            'active' => request()->routeIs('voter.vote-history'),
-        ],
-        [
-            'label' => 'Verify Vote',
-            'route' => 'voter.verify-vote',
-            'icon' => 'shield-check',
-            'active' => request()->routeIs('voter.verify-vote*'),
-        ],
-        [
-            'label' => 'Profile',
-            'route' => 'voter.profile',
+            'label' => 'Campaign Profile',
+            'route' => 'candidate.profile',
             'icon' => 'user',
-            'active' => request()->routeIs('voter.profile'),
+            'active' => request()->routeIs('candidate.profile*'),
+        ],
+        [
+            'label' => 'My Election',
+            'route' => 'candidate.election',
+            'icon' => 'vote',
+            'active' => request()->routeIs('candidate.election'),
+        ],
+        [
+            'label' => 'My Position',
+            'route' => 'candidate.position',
+            'icon' => 'target',
+            'active' => request()->routeIs('candidate.position'),
+        ],
+        [
+            'label' => 'Results',
+            'route' => 'candidate.results',
+            'icon' => 'bar-chart-3',
+            'active' => request()->routeIs('candidate.results'),
         ],
     ];
 @endphp

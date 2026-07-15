@@ -10,13 +10,13 @@
 
     <div class="flex min-h-screen">
         {{-- Sidebar --}}
-        <aside id="dashboard-sidebar" class="w-64 bg-navy-950 text-white flex-shrink-0 fixed lg:sticky top-0 left-0 z-40 h-screen lg:h-screen flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
-            <div class="p-6 border-b border-navy-800 flex-shrink-0">
+        <aside id="dashboard-sidebar" class="w-64 bg-white border-r border-slate-200 flex-shrink-0 fixed lg:relative top-0 left-0 z-40 h-screen flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
+            <div class="p-6 border-b border-slate-200 flex-shrink-0">
                 <div class="flex items-center justify-between">
                     <a href="{{ route('home') }}" class="flex items-center">
-                        <span class="text-2xl font-extrabold">Corn<span class="text-orange-500">elect</span></span>
+                        <span class="text-2xl font-extrabold text-navy-950">Corn<span class="text-orange-500">elect</span></span>
                     </a>
-                    <button id="sidebar-close" class="lg:hidden p-1 text-navy-400 hover:text-white">
+                    <button id="sidebar-close" class="lg:hidden p-1 text-slate-400 hover:text-slate-700">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -34,20 +34,20 @@
                     default => 'voter.profile',
                 };
             @endphp
-            <div class="p-4 border-t border-navy-800 flex-shrink-0">
-                <a href="{{ route($profileRoute) }}" class="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-navy-800 transition-colors group">
+            <div class="p-4 border-t border-slate-200 flex-shrink-0">
+                <a href="{{ route($profileRoute) }}" class="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-slate-100 transition-colors group">
                     <div class="relative shrink-0">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full ring-2 ring-navy-700 group-hover:ring-orange-500 transition-all duration-300">
-                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full ring-2 ring-navy-950"></span>
+                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-10 h-10 rounded-full ring-2 ring-slate-200 group-hover:ring-orange-500 transition-all duration-300">
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full ring-2 ring-white"></span>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold truncate group-hover:text-orange-400 transition-colors">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-navy-400 truncate">{{ ucfirst(auth()->user()->role) }}</p>
+                        <p class="text-sm font-semibold truncate text-navy-950 group-hover:text-orange-600 transition-colors">{{ auth()->user()->name }}</p>
+                        <p class="text-xs text-slate-400 truncate">{{ ucfirst(auth()->user()->role) }}</p>
                     </div>
                 </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-navy-400 hover:text-orange-500 hover:bg-navy-800 transition-all duration-300 group">
+                    <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-slate-500 hover:text-orange-600 hover:bg-slate-100 transition-all duration-300 group">
                         <i data-lucide="log-out" class="w-4 h-4 group-hover:translate-x-0.5 transition-transform"></i>
                         Sign Out
                     </button>
@@ -56,7 +56,7 @@
         </aside>
 
         {{-- Main Content --}}
-        <div class="flex-1 flex flex-col min-w-0 w-full">
+        <div class="flex-1 flex flex-col min-w-0">
             {{-- Top Bar --}}
             <header class="bg-white border-b border-slate-200 px-4 lg:px-6 py-4 flex items-center justify-between sticky top-0 z-20">
                 <div class="flex items-center gap-3 min-w-0">

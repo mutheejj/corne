@@ -2,22 +2,8 @@
 
 @section('page-title', 'Candidates')
 
-@section('sidebar-nav')
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-navy-300 hover:bg-navy-800 text-sm font-medium">
-        <i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard
-    </a>
-    <a href="{{ route('admin.elections.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-navy-300 hover:bg-navy-800 text-sm font-medium">
-        <i data-lucide="vote" class="w-5 h-5"></i> Elections
-    </a>
-    <a href="{{ route('admin.candidates.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-orange-500 text-white text-sm font-medium">
-        <i data-lucide="users" class="w-5 h-5"></i> Candidates
-    </a>
-    <a href="{{ route('admin.voters.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-navy-300 hover:bg-navy-800 text-sm font-medium">
-        <i data-lucide="user-check" class="w-5 h-5"></i> Voters
-    </a>
-    <a href="{{ route('admin.audit-logs.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-navy-300 hover:bg-navy-800 text-sm font-medium">
-        <i data-lucide="scroll-text" class="w-5 h-5"></i> Audit Logs
-    </a>
+@section("sidebar-nav")
+    @include("partials.sidebar-admin")
 @endsection
 
 @section('content')

@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
             // Settings & Audit
             Route::put('/elections/{election}/settings', [AdminController::class, 'updateSettings'])->name('settings.update');
             Route::get('/audit-logs', [AdminController::class, 'auditLogs'])->name('audit-logs.index');
+            Route::get('/search', [AdminController::class, 'search'])->name('search');
             Route::get('/security-report', function () {
                 $report = app(SecurityService::class)->getSecurityReport();
 

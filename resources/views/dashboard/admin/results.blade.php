@@ -2,12 +2,8 @@
 
 @section('page-title', 'Election Results')
 
-@section('sidebar-nav')
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Dashboard</a>
-    <a href="{{ route('admin.elections.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Elections</a>
-    <a href="{{ route('admin.candidates.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Candidates</a>
-    <a href="{{ route('admin.voters.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Voters</a>
-    <a href="{{ route('admin.audit-logs.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-navy-300 hover:bg-navy-800">Audit Logs</a>
+@section("sidebar-nav")
+    @include("partials.sidebar-admin")
 @endsection
 
 @section('content')
