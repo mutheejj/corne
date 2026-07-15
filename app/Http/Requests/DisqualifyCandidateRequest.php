@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class DisqualifyCandidateRequest extends FormRequest
+{
+    public function authorize(): bool
+    {
+        return $this->user()->is_admin;
+    }
+
+    /**
+     * @return array<string, array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'reason' => ['required', 'string', 'max:1000'],
+        ];
+    }
+}
