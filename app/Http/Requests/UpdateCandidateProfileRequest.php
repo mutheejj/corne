@@ -8,7 +8,7 @@ class UpdateCandidateProfileRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->is_candidate || $this->user()->is_admin;
+        return $this->user()->is_candidate || $this->user()->role === 'admin';
     }
 
     /**
